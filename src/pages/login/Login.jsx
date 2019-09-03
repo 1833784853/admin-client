@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import './Login.less';
-import jsonp from 'jsonp';
+import easyJsonp from 'easy-jsonp';
+
+import axios from 'axios';
 const url = 'https://acg.toubiec.cn/random?return=json';
 export default class Login extends Component {
     componentDidMount = () => {
-        jsonp(url,(data) => {
-            /* let bgImg = new Image();
-            bgImg.src = data; */
+        easyJsonp({
+            url,
+            callback: 'callback',
+            timeout: 3000
+        }).then((data) => {
             console.log(data);
             
+        }).cacth((err) => {
+            console.log(err);
         })
     }
+
     render() {
         return (
             <div id="login-wrap">
