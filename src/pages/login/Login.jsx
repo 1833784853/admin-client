@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Login.less';
-const url = './img/6417838876e128b76ad6cab90ada45a8.jpg';
+import url from './img/bgc.jpg';
 export default class Login extends Component {
     
     onLoadHandle = (e) => {
@@ -13,7 +13,7 @@ export default class Login extends Component {
                 <div className="login-header">
                     <h1>React项目：一个用react编制的后台管理系统</h1>
                 </div>
-                <div className="login-content">
+                <div id="login-content">
                     <img src={url} alt="bg" onLoad={this.onLoadHandle}/>
                 </div>
             </div>
