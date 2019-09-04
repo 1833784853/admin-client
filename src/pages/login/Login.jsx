@@ -15,6 +15,9 @@ export default class Login extends Component {
                 </div>
                 <div id="login-content">
                     <img src={url} alt="bg" onLoad={this.onLoadHandle}/>
+                    <div className="form-box">
+                        <h1>进入新世界</h1>
+                    </div>
                 </div>
             </div>
         )
