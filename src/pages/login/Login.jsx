@@ -9,9 +9,15 @@ import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import { reqLogin } from '../../api/';
 class Login extends Component {
-    
-    UNSAFE_componentWillMount = () => {
-        
+
+    componentDidMount = () => {
+        let { login } = this.refs;
+        if (!login) {
+            return;
+        }
+        setTimeout(() => {
+            login.className = 'active'
+        },1000)
     }
 
     handleSubmit = e => {
@@ -48,12 +54,12 @@ class Login extends Component {
     }
     render() {
         let user = memoryUtils.user;
-        if(user._id) {
+        if (user._id) {
             return <Redirect to="/" />
         }
         let { getFieldDecorator } = this.props.form;
         return (
-            <div id="login-wrap">
+            <div id="login-wrap" ref="login">
                 <div className="login-header">
                     <h1>React项目：一个用react编制的后台管理系统</h1>
                 </div>
