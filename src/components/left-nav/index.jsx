@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Avatar, Row, Col, Typography } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 
 import './index.less';
 import memoryUtils from '../../utils/memoryUtils';
 import { menuData } from '../config/configMenu';
 const { SubMenu } = Menu;
+const {Text} = Typography;
 class LeftNav extends Component {
     // 根据menuData中的数据进行遍历返回 <Menu.item> 或者 <subMenu>
     // 采用递归的方式创建多级菜单
@@ -33,7 +34,7 @@ class LeftNav extends Component {
                     >
                         {
                             this.getdefaultOpenKeys(item)
-                        }   
+                        }
                         {
                             this.showMenuNav(item.children)
                         }
@@ -49,19 +50,20 @@ class LeftNav extends Component {
             this.openKeys = item.key
         }
     }
-    UNSAFE_componentWillMount () {
+    UNSAFE_componentWillMount() {
         this.menuList = this.showMenuNav(menuData);
     }
     render() {
-        const path = this.props.location.pathname
+        const path = this.props.location.pathname;
         return (
             <div id="left-nav">
-                <div className="user-data-box">
-                    <div className="avatar-box">
-                        <img src={memoryUtils.user.avatar_url} alt='头像' />
-                    </div>
-                    <span>{memoryUtils.user.userName}</span>
-                </div>
+                <Row className="user-data-box">
+                    <Col span={9} push={1}>
+                        <Avatar src={memoryUtils.user.avatar_url} size={65} />
+                    </Col>
+                    <Col span={12} push={2}><Text strong={true}>{memoryUtils.user.userName}</Text></Col>
+                    
+                </Row>
                 <Menu
                     selectedKeys={[path]}
                     defaultOpenKeys={[this.openKeys]}
@@ -71,8 +73,6 @@ class LeftNav extends Component {
                     {
                         this.menuList
                     }
-
-
                 </Menu>
             </div>
         )

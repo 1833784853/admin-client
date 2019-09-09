@@ -12,6 +12,6 @@ const USER_KEY = 'USER_KEY';
          return store.get(USER_KEY) || {}; // 获取user的数据，如果获取不到则返回一个空对象
      },
      removeUser () {
-         store.remove(USER_KEY) 
+         store.remove(USER_KEY)
      }
  }
