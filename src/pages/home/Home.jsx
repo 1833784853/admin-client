@@ -10,12 +10,14 @@ export default class Home extends Component {
     }
     getText = ({ hour })=>{
         let text = ''
-        if(Number(hour)>17 || Number(hour)<6) {
-            text = '晚上好'
-        } else if(Number(hour)>11 || Number(hour)<3){
-            text = '中午好'
-        } else {
+        if(Number(hour)<12 && Number(hour)>6) {
             text = '早上好'
+        } else if(Number(hour)>=12 && Number(hour)<15){
+            text = '中午好'
+        }else if(Number(hour)>=15 && Number(hour)<18) {
+            text = '下午好'
+        } else {
+            text = '晚上好'
         }
         return text
     }

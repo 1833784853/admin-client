@@ -24,3 +24,13 @@ export const reqWeather = (city) => {
         })
     })
 }
+
+// 发送添加分类请求 
+export const sendAddCategory = (name) => ajax.post('/products/addCategory', { name })
+
+// 获取分类管理
+export const reqGetCategoryList = (page, pageSize) => ajax.get('/products/getCategorys', { page, pageSize })
+
+
+// 发送修改分类数据的请求
+export const sendUpdataCategory = (id, name) => ajax.post('/products/updataCategory', { id, name })

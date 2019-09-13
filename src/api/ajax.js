@@ -15,7 +15,10 @@ axios.interceptors.request.use(function (config) {
 })
 
 axios.interceptors.response.use(function (response) {
-    return response.data;
+    if(response.data) {
+        return response.data;
+    }
+    return response
 }, function (err) {
     message.error(`请求出错：${err}`);
     return new Promise(()=>{});

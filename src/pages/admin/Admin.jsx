@@ -37,7 +37,7 @@ export default class Admin extends Component {
                         </Sider>
                         <Layout>
                             <Header />
-                            <Content style={{ backgroundColor: '#fff', margin: '20px', borderRadius: '10px' }}>
+                            <Content style={{ backgroundColor: '#fff', margin: '20px 20px 0', borderRadius: '10px' }}>
                                 <Switch>
                                     <Route path="/home" component={Home} />
                                     <Route path="/products/product" component={Product} />
@@ -46,7 +46,7 @@ export default class Admin extends Component {
                                     <Redirect to="/home" />
                                 </Switch>
                             </Content>
-                            <Footer className="footer">使用谷歌浏览器体验为最佳</Footer>
+                            <Footer className="footer" style={{padding:'8px 50px'}}>使用谷歌浏览器体验为最佳</Footer>
                         </Layout>
                     </Layout>]
                     : [<div key="login"><Redirect to="/login" /></div>]}
