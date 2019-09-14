@@ -62,7 +62,10 @@ class Header extends Component {
         this.setState({ weatherLoading: true });
         let result = await reqWeather(value.trim());
         // 判断是否有错误
-        if (result.error) {
+        if(!result.error) {
+            this.setState({ weatherLoading: false });
+        }
+        if (result&&result.error) {
             message.error('您输入的城市，无法获取到天气信息');
             this.setState({ weatherLoading: false });
             return;

@@ -25,7 +25,6 @@ class addUpdataForm extends Component {
         this.props.setForm(this.props.form)
     }
     render() {
-        console.log('render')
         let { getFieldDecorator } = this.props.form
         let { categoryName } = this.props
         return (

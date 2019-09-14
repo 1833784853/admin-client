@@ -40,6 +40,7 @@ export default class Category extends Component {
         this.category = ''
         this.setState({ visible: true, modalIsAdd: 0 })
     }
+    
     handleOk = () => {
         this.form.validateFields(async (err, values) => {
             if (this.state.modalIsAdd === 0) {
@@ -93,7 +94,7 @@ export default class Category extends Component {
         const category = this.category || {}
         return (
             <QueueAnim animConfig={[
-                { translateX: [0, 50], opacity: [1, 0] }
+                { translateY: [0, 50], opacity: [1, 0] }
             ]}>
                 <Card bordered={false} extra={<Button type="primary" onClick={this.showAddForm}><Icon type="plus"></Icon></Button>} key="card">
                     <Table
@@ -121,9 +122,7 @@ export default class Category extends Component {
                         onCancel={this.handleCancel}
                         okText={modalIsAdd ? "修改" : "添加"}
                         cancelText="取消"
-                        afterClose={() => {
-                            this.form.resetFields()
-                        }}
+                        afterClose={() => this.form.resetFields()}
                     >
                         <AddUpdataForm setForm={form => this.form = form} categoryName={category.name} />
                     </Modal>
