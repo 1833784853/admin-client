@@ -60,33 +60,45 @@ class Header extends Component {
      */
     onClickSwitchCity = async (value) => {
         this.setState({ weatherLoading: true });
-        let result = await reqWeather(value.trim());
-        // 判断是否有错误
-        if(!result.error) {
-            this.setState({ weatherLoading: false });
+        try {
+            let result = await reqWeather(value.trim());
+            // 判断是否有错误
+            if (!result.error) {
+                this.setState({ weatherLoading: false });
+            }
+            if (result && result.error) {
+                message.error('您输入的城市，无法获取到天气信息');
+                this.setState({ weatherLoading: false });
+                return;
+            } else if(JSON.stringify(result)==='{}'){
+                message.error('获取天气失败，请检查网络');
+                this.setState({ weatherLoading: false });
+                return;
+            }
+            
+            // 判断是否输入了相同的城市
+            message.success((this.state.weather.city !== value ? `获取成功！当前城市：${value}` : `更新天气，成功！！`))
+            // 获取请求回来的数据
+            let { city } = result
+            let { dayPictureUrl, nightPictureUrl, weather, temperature } = result.data
+            let hour = Number(this.state.time.hour)
+            // 储存白天的天气图片或者是储存晚上的天气图片，判断当前是白天还是晚上
+            let pictureUrl = (hour > 17 || hour < 5) ? nightPictureUrl : dayPictureUrl
+            this.setState({
+                weather: {
+                    city,
+                    pictureUrl,
+                    weather,
+                    temperature,
+                },
+                weatherLoading: false
+            });
+        } catch (error) {
+            this.setState({
+                weatherLoading: false
+            });
+            message.error(`获取失败${error}`)
         }
-        if (result&&result.error) {
-            message.error('您输入的城市，无法获取到天气信息');
-            this.setState({ weatherLoading: false });
-            return;
-        }
-        // 判断是否输入了相同的城市
-        message.success((this.state.weather.city !== value ? `获取成功！当前城市：${value}` : `更新天气，成功！！`))
-        // 获取请求回来的数据
-        let { city } = result
-        let { dayPictureUrl, nightPictureUrl, weather, temperature } = result.data
-        let hour = Number(this.state.time.hour)
-        // 储存白天的天气图片或者是储存晚上的天气图片，判断当前是白天还是晚上
-        let pictureUrl = (hour > 17 || hour < 5) ? nightPictureUrl : dayPictureUrl
-        this.setState({
-            weather: {
-                city,
-                pictureUrl,
-                weather,
-                temperature,
-            },
-            weatherLoading: false
-        });
 
     }
     componentDidMount = () => {

@@ -40,7 +40,7 @@ export default class Category extends Component {
         this.category = ''
         this.setState({ visible: true, modalIsAdd: 0 })
     }
-    
+
     handleOk = () => {
         this.form.validateFields(async (err, values) => {
             if (this.state.modalIsAdd === 0) {
@@ -78,15 +78,25 @@ export default class Category extends Component {
     }
     getCategory = async (page, pageSize) => {
         this.setState({ tableLoading: true })
-        let { status, data, count, message } = await reqGetCategoryList(page, pageSize);
-        if (status && status === 200) {
+        try {
+            let { status, data, count, message } = await reqGetCategoryList(page, pageSize);
+            if (status && status === 200) {
+                this.setState({
+                    data,
+                    count,
+                    tableLoading: false
+                })
+            } else {
+                this.setState({
+                    tableLoading: false
+                })
+                message.error(message);
+            }
+        } catch (error) {
             this.setState({
-                data,
-                count,
                 tableLoading: false
             })
-        } else {
-            message.error(message);
+            message.error(`获取失败${error}`)
         }
     }
     render() {
